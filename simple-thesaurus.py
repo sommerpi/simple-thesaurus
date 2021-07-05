@@ -13,7 +13,7 @@ def translate(word):
     return data[word.upper()]
   # find the most similar word if the user spell it wrong
   elif len(get_close_matches(word, data.keys())) > 0:
-    answer = input("Did you mean %s instead? Enter Y if yes, or N if no: " % get_close_matches(word, data.keys())[0])
+    answer = input("Did you mean \"%s\" instead? Enter Y if yes, or N if no: " % get_close_matches(word, data.keys())[0])
     if answer == "Y":
       return data[get_close_matches(word, data.keys())[0]]
     elif answer == "N":
@@ -25,15 +25,36 @@ def translate(word):
     return "The word doesn't exit. Please double check it!"
 
 
-def main():
+def read_user_input():
   word = input("Enter a word: ")
-  output = (translate(word))
-  # print the result
-  if type(output) == list:
-    for item in output:
-      print(item)
+  if word == "0":
+    print("============================")
+    print("Goodbye! （ ゜ρ゜)ノ")
+    return False
   else:
-    print(output)
+    output = (translate(word))
+    # print the result
+    if type(output) == list:
+      for i in range(len(output)):
+        print(i+1, output[i])
+    else:
+      print(output)
+    print("----------------------------")
+    return True  
+
+
+def print_menu():
+  print("""Enter '0' to quit.""")
+  print("============================")
+
+
+def main():
+  print("Welcome to Simple Thesaurus!")
+  print("============================")
+  print_menu()
+  output = read_user_input()
+  while output:
+    output = read_user_input()
 
 
 if __name__ == "__main__":
